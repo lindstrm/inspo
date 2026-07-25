@@ -1,0 +1,75 @@
+name: Publish Docker image
+
+# Builds the app image and pushes it to the GitHub Container Registry (GHCR)
+# whenever a release is published. Use semver release tags (e.g. v1.2.3) and the
+# image is tagged 1.2.3, 1.2, 1, and latest. No extra secrets are needed — the
+# built-in GITHUB_TOKEN authenticates to GHCR.
+on:
+  release:
+    types: [published]
+
+env:
+  REGISTRY: ghcr.io
+  # Resolves to ghcr.io/lindstrm/inspo (owner/repo, always lowercase for GHCR).
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # checkout the repository
+      packages: write # push the image to GHCR
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Derive image tags and labels
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          # latest=auto (the default flavor) also adds :latest for the newest
+          # non-prerelease semver tag.
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=ref,event=tag
+
+      - name: Build and push image
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # Single-arch (linux/amd64) build; drop the confusing "unknown/unknown"
+          # attestation entry from the package listing.
+          provenance: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Write image summary
+        run: |
+          {
+            echo "### Docker image published 🐳"
+            echo ""
+            echo "**Digest:** \`${{ steps.build.outputs.digest }}\`"
+            echo ""
+            echo "**Tags**"
+            echo '```'
+            echo "${{ steps.meta.outputs.tags }}"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
