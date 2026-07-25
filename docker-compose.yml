@@ -1,13 +1,22 @@
+# Runs the image published to GHCR by the release workflow (no local build).
+# Variables are inline; replace the ANTHROPIC_API_KEY placeholder with your real
+# key before running:
+#
+#   docker compose up -d
+#
+# Do NOT commit your real key — this repo is public. Pin a version tag
+# (e.g. ghcr.io/lindstrm/inspo:0.1.0) for reproducible deploys; :latest exists
+# after your first published release.
+
 services:
   inspo:
-    build: .
+    image: ghcr.io/lindstrm/inspo:latest
     container_name: inspo
     ports:
       - "3000:3000"
-    env_file:
-      - .env
     environment:
-      DATA_DIR: /data
+      ANTHROPIC_API_KEY: sk-ant-your-key-here
+      ANTHROPIC_MODEL: claude-sonnet-5
     volumes:
       - ./data:/data
     restart: unless-stopped
