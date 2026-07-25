@@ -1,0 +1,527 @@
+/* ============================================================
+   The light table: header bar, tray tabs, the wall of mounts.
+   ============================================================ */
+
+/* ---- Header: wordmark + capture ---- */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 24px;
+  background: var(--table-charcoal);
+  border-bottom: 1px solid var(--room-deep);
+}
+
+.wordmark {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.wordmark-name {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.0625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--projection-white);
+}
+
+.wordmark-name .stamp {
+  color: var(--kodachrome-red);
+}
+
+.wordmark-count {
+  font-size: 0.6875rem;
+  color: var(--white-dim);
+  text-transform: uppercase;
+}
+
+.capture {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.capture-input {
+  width: clamp(200px, 34vw, 480px);
+  padding: 9px 12px;
+  background: var(--room-deep);
+  border: 1px solid var(--table-edge);
+  border-radius: var(--radius-window);
+  color: var(--projection-white);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8125rem;
+}
+
+.capture-input::placeholder {
+  color: var(--placeholder-dim);
+}
+
+.capture-input:focus {
+  border-color: var(--kodachrome-red);
+  outline: none;
+}
+
+.btn-expose {
+  padding: 0 18px;
+  background: var(--kodachrome-red);
+  color: var(--projection-white);
+  border-radius: var(--radius-window);
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  transition: background var(--t-fast) var(--ease-mech);
+}
+
+.btn-expose:hover {
+  background: #b52d22;
+}
+
+.btn-expose:disabled {
+  background: var(--table-edge);
+  color: var(--white-dim);
+  cursor: wait;
+}
+
+.btn-upload {
+  padding: 0 14px;
+  border: 1px solid var(--table-edge);
+  border-radius: var(--radius-window);
+  color: var(--white-dim);
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  transition: color var(--t-fast) var(--ease-mech), border-color var(--t-fast) var(--ease-mech);
+}
+
+.btn-upload:hover {
+  color: var(--projection-white);
+  border-color: var(--white-dim);
+}
+
+.save-error {
+  padding: 8px 24px;
+  background: var(--room-deep);
+  color: var(--projection-white);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  border-bottom: 1px solid var(--table-edge);
+}
+
+.save-error::before {
+  content: "✗ ";
+  color: var(--red-signal);
+  font-weight: 700;
+}
+
+/* ---- Tray tabs ---- */
+
+.trays {
+  display: flex;
+  gap: 3px;
+  padding: 14px 24px 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  border-bottom: 1px solid var(--table-edge);
+}
+
+.tray {
+  flex-shrink: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 8px 13px;
+  background: var(--table-charcoal);
+  border-radius: var(--radius-mount) var(--radius-mount) 0 0;
+  color: var(--white-dim);
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color var(--t-fast) var(--ease-mech), background var(--t-fast) var(--ease-mech);
+}
+
+.tray:hover {
+  color: var(--projection-white);
+}
+
+.tray[aria-pressed="true"] {
+  background: var(--mount-bone);
+  color: var(--type-ink);
+}
+
+.tray-count {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  font-weight: 400;
+}
+
+/* ---- The wall ---- */
+
+.table {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-content: start;
+  align-items: start;
+  gap: 20px 18px;
+  padding: 18px 24px 110px;
+  background: var(--table-surface);
+  min-height: calc(100dvh - 140px);
+}
+
+@media (max-width: 1280px) {
+  .table {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 960px) {
+  .table {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .table {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* The archival mount: darker than the room, flat and fixed-height; the image absorbs the flex */
+.mount {
+  display: flex;
+  flex-direction: column;
+  height: 420px;
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+  background: var(--room-deep);
+  border: 1px solid var(--table-edge);
+  border-radius: var(--radius-mount);
+  padding: 9px 9px 0;
+  transition: background var(--t-fast) var(--ease-mech);
+}
+
+.mount:hover {
+  background: var(--room-black);
+}
+
+.mount-window {
+  display: block;
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: var(--radius-window);
+  background: var(--room-deep);
+}
+
+.mount-window img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.mount-caption,
+.mount-chips,
+.mount-footer {
+  flex-shrink: 0;
+}
+
+/* The catalog card: title + rendition hint, keyword chips, family footer */
+
+.mount-caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 3px 8px;
+}
+
+.mount-caption .caption-title {
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  color: var(--projection-white);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mount-caption .caption-hint {
+  max-width: 55%;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  color: var(--white-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mount-chips {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 5px;
+  padding: 0 3px 10px;
+  overflow: hidden;
+}
+
+.chip-keyword {
+  flex-shrink: 1;
+  min-width: 0;
+  padding: 4px 9px;
+  background: var(--table-charcoal);
+  border: 1px solid var(--table-edge);
+  border-radius: var(--radius-window);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  color: var(--projection-white);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chip-overflow {
+  flex-shrink: 0;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  color: var(--white-dim);
+}
+
+.mount-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 3px 10px;
+  border-top: 1px solid var(--hairline-light);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.mount-footer .footer-family {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  font-weight: 700;
+  color: var(--red-signal);
+}
+
+.mount-footer .family-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mount-footer .footer-family.muted {
+  color: var(--white-dim);
+  font-weight: 400;
+}
+
+.mount-footer .family-mark {
+  color: var(--red-signal);
+  font-size: 0.5625rem;
+}
+
+.mount-footer .footer-count {
+  flex-shrink: 0;
+  color: var(--white-dim);
+}
+
+/* Developing: the safelight owns this state and nothing else */
+
+.mount.is-developing .mount-window {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--safelight-dark);
+  animation: safelight-breathe 2.4s ease-in-out infinite;
+}
+
+.developing-edge {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.5625rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--safelight-amber);
+}
+
+.mount.is-developing .caption-hint {
+  color: var(--safelight-amber);
+}
+
+@keyframes safelight-breathe {
+  0%,
+  100% {
+    box-shadow: inset 0 0 22px rgba(232, 154, 60, 0.16);
+  }
+  50% {
+    box-shadow: inset 0 0 34px rgba(232, 154, 60, 0.36);
+  }
+}
+
+/* The one authored moment: a slide resolving out of the darkroom */
+
+.mount.just-developed .mount-window img {
+  animation: develop-in 1.1s var(--ease-mech) both;
+}
+
+@keyframes develop-in {
+  0% {
+    filter: brightness(0.05) sepia(1) saturate(3) hue-rotate(-18deg);
+  }
+  55% {
+    filter: brightness(0.55) sepia(0.55) saturate(1.6) hue-rotate(-8deg);
+  }
+  100% {
+    filter: none;
+  }
+}
+
+/* Failed: grease-pencil X on a dark frame */
+
+.mount.is-failed .mount-window {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #171214;
+}
+
+.mount.is-failed .failed-x {
+  width: 44px;
+  height: 44px;
+  color: var(--kodachrome-red);
+}
+
+.mount.is-failed .caption-title {
+  color: var(--red-signal);
+}
+
+/* ---- Drop target + empty table ---- */
+
+.drop-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(12, 11, 13, 0.88);
+  border: 3px dashed var(--safelight-amber);
+  color: var(--safelight-amber);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.empty-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  padding: 12vh 24px 16vh;
+  text-align: center;
+}
+
+/* The empty state is a real mount with nothing in its window — the world, not a wireframe */
+.empty-mount {
+  width: 320px;
+  max-width: 100%;
+  background: var(--room-deep);
+  border: 1px solid var(--table-edge);
+  border-radius: var(--radius-mount);
+  padding: 9px 9px 0;
+  text-align: left;
+}
+
+.empty-mount-window {
+  display: block;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius-window);
+  background: var(--room-black);
+}
+
+.empty-mount-caption {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 3px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+}
+
+.empty-title {
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.empty-copy {
+  max-width: 44ch;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--white-dim);
+}
+
+.empty-copy .key {
+  color: var(--projection-white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---- Small screens ---- */
+
+@media (max-width: 720px) {
+  .bar {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+
+  .capture {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .capture-input {
+    width: 100%;
+    flex: 1;
+  }
+
+  .trays {
+    padding: 12px 14px 0;
+  }
+
+  .table {
+    gap: 14px 12px;
+    padding: 14px 14px 90px;
+  }
+
+  .mount {
+    height: 380px;
+  }
+}

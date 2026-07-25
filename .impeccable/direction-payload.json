@@ -1,0 +1,32 @@
+{
+  "title": "Choose Inspo's visual world",
+  "question": "The roll assigned The Slide Library. Keep it, take a fused alternate, steer a re-roll, or play it straight.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "The Slide Library",
+      "kicker": "THE ROLL",
+      "lineage": "art-history slide libraries, 35mm lightboxes & carousel trays",
+      "body": "Your saves become mounted 35mm slides glowing on a light table in a darkened room. The wall of everything IS the table: dense luminous frames on near-black, chrome receding to typed mount labels and grease-pencil marks. Design types are carousel trays; the filter row reads as tray dividers. Clicking a slide projects it — image large, beside the registrar's typed caption card carrying the style name, keywords, the hero-background prompt, and Copy Brief: the art-history lecture ritual ('this is Constructivism; note the diagonal axis') as product mechanism. Fire-and-forget saves land as still-developing frames that resolve into labeled slides when analysis completes. Honest risk: the luminous-slide treatment must be tuned so light screenshots don't blow out against the dark ground — mount and matting discipline has to be exact."
+    },
+    {
+      "id": "challenger-fillmore",
+      "label": "Fillmore Handbill",
+      "lineage": "1966–71 Fillmore psychedelic handbills",
+      "body": "Fused: the gallery as a ballroom poster wall — hot orange on electric blue chrome, liquid hand-drawn lettering for tray names, the active filter vibrating at the ink boundary. Case: maximal anti-minimalism with deep designer resonance. Risk: vibrating complementary inks compete with the screenshots, which are the content.",
+      "hero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-fillmore-handbill-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/posters-covers-sleeves-fillmore-handbill.webp"
+    },
+    {
+      "id": "challenger-neon",
+      "label": "Hand-Bent Neon",
+      "lineage": "hand-bent neon gas-discharge signage",
+      "body": "Fused: a dark studio where tray names run as hand-bent neon script and the active filter ignites cobalt; saves glow like sealed tubes. Case: real material glow, dark-room atmosphere, zero minimalism. Risk: signage is a one-word grammar — it decorates a wall of images rather than organizing one.",
+      "hero": "https://impeccable.style/worlds/cards/magnetism-electricity-plasma-hand-bent-neon-circuit-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/magnetism-electricity-plasma-hand-bent-neon-circuit.webp"
+    }
+  ],
+  "reroll": true,
+  "canon": true,
+  "steer": true
+}

@@ -1,0 +1,329 @@
+/* ============================================================
+   Projection view: the room darkens a stop; one slide fills the
+   wall beside the registrar's typed caption card.
+   ============================================================ */
+
+.projection {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  gap: 24px;
+  padding: 28px;
+  background: rgba(7, 6, 8, 0.93);
+  animation: projection-on var(--t-fast) var(--ease-mech) both;
+}
+
+@keyframes projection-on {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.projection-stage {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.projection-stage img,
+.projection-stage video {
+  max-width: 100%;
+  max-height: calc(100dvh - 56px);
+  object-fit: contain;
+  border-radius: var(--radius-window);
+  box-shadow: 0 6px 44px var(--backlight);
+}
+
+.projection-stage .stage-state {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8125rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--safelight-amber);
+}
+
+.projection-stage .stage-state.failed {
+  color: var(--red-signal);
+}
+
+.projection-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  z-index: 2;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 8px 10px;
+  color: var(--white-dim);
+  transition: color var(--t-fast) var(--ease-mech);
+}
+
+.projection-close:hover {
+  color: var(--projection-white);
+}
+
+.projection-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  padding: 14px 10px;
+  font-size: 1.375rem;
+  color: var(--white-dim);
+  transition: color var(--t-fast) var(--ease-mech);
+}
+
+.projection-nav:hover {
+  color: var(--projection-white);
+}
+
+.projection-nav.prev {
+  left: 8px;
+}
+
+.projection-nav.next {
+  right: 8px;
+}
+
+/* ---- The registrar's caption card ---- */
+
+.caption-card {
+  width: 392px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  background: var(--mount-bone);
+  color: var(--type-ink);
+  border-radius: var(--radius-mount);
+  padding: 24px 22px 20px;
+}
+
+.card-tray {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono), monospace;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red-ink);
+}
+
+.card-tray::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--kodachrome-red);
+}
+
+.card-title {
+  margin-top: 10px;
+  font-weight: 800;
+  font-size: 1.375rem;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+
+.card-hint {
+  margin-top: 4px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8125rem;
+  color: var(--ink-faint);
+}
+
+.card-meta {
+  margin-top: 8px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+}
+
+.card-meta a {
+  color: var(--red-ink);
+  text-underline-offset: 2px;
+}
+
+.card-section {
+  margin-top: 22px;
+}
+
+.card-section h3 {
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 8px;
+}
+
+.card-description {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+}
+
+.card-keywords {
+  list-style: none;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8125rem;
+  line-height: 1.8;
+}
+
+.card-keywords li::before {
+  content: "· ";
+  color: var(--red-ink);
+}
+
+.card-palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.chip-swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-window);
+  border: 1px solid rgba(42, 38, 48, 0.35);
+}
+
+.chip-hex {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.5625rem;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+
+/* ---- Copy actions ---- */
+
+.card-actions {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-copy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--type-ink);
+  border-radius: var(--radius-window);
+  background: var(--mount-bone);
+  color: var(--type-ink);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  transition: background var(--t-fast) var(--ease-mech), color var(--t-fast) var(--ease-mech);
+}
+
+.btn-copy:hover {
+  background: var(--type-ink);
+  color: var(--mount-bone);
+}
+
+.btn-copy .copy-hint {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.625rem;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.btn-copy.copied {
+  border-color: var(--red-ink);
+  color: var(--red-ink);
+  background: var(--mount-bone);
+}
+
+/* ---- Card footer: error, retry, delete ---- */
+
+.card-error {
+  margin-top: 14px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--red-ink);
+  overflow-wrap: anywhere;
+}
+
+.card-footer {
+  margin-top: 26px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(42, 38, 48, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-quiet {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--t-fast) var(--ease-mech);
+}
+
+.btn-quiet:hover {
+  color: var(--type-ink);
+}
+
+.btn-quiet.danger:hover,
+.btn-quiet.armed {
+  color: var(--red-ink);
+}
+
+/* ---- Small screens ---- */
+
+@media (max-width: 900px) {
+  .projection {
+    flex-direction: column;
+    padding: 16px;
+    padding-top: 52px;
+    overflow-y: auto;
+  }
+
+  .projection-stage {
+    flex: none;
+  }
+
+  .projection-stage img,
+  .projection-stage video {
+    max-height: 46dvh;
+  }
+
+  .caption-card {
+    width: 100%;
+    overflow-y: visible;
+  }
+
+  .projection-nav {
+    top: 24dvh;
+  }
+}

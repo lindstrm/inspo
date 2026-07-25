@@ -1,0 +1,10 @@
+node_modules
+.next
+data
+.env
+.env.local
+.git
+.impeccable
+Dockerfile
+docker-compose.yml
+README.md

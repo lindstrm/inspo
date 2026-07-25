@@ -1,0 +1,126 @@
+/* ============================================================
+   Inspo — The Slide Library
+   Tokens + base. See DESIGN.md for the system this implements.
+   ============================================================ */
+
+:root {
+  /* The viewing room */
+  --room-black: #131215;
+  --room-deep: #0c0b0d;
+  --table-surface: #17151a;
+  --table-charcoal: #1c1a1f;
+  --table-edge: #2e2b33;
+
+  /* Slide-mount cardboard */
+  --mount-bone: #eae6de;
+  --mount-bone-dim: #ddd7cb;
+  --type-ink: #2a2630;
+  --ink-faint: #675f58;
+
+  /* Light */
+  --projection-white: #f4f1ea;
+  --white-dim: #a8a49d;
+  --placeholder-dim: #8f8a84;
+  --backlight: rgba(255, 250, 235, 0.13);
+  --backlight-lifted: rgba(255, 250, 235, 0.2);
+  --hairline-light: rgba(244, 241, 234, 0.14);
+
+  /* Accents */
+  --kodachrome-red: #d6382c;
+  --red-ink: #a8281e; /* red for text on bone — darker for contrast */
+  --red-signal: #e0574b; /* red for text on dark grounds — lighter for contrast */
+  --safelight-amber: #e89a3c;
+  --safelight-deep: #7a4a14;
+  --safelight-dark: #191008;
+
+  /* Mechanics */
+  --ease-mech: cubic-bezier(0.2, 0, 0, 1);
+  --t-fast: 120ms;
+  --radius-mount: 3px;
+  --radius-window: 2px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--room-black);
+  color: var(--projection-white);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+input {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--kodachrome-red);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--kodachrome-red);
+  color: var(--projection-white);
+}
+
+/* Typed voice — everything the registrar would have typed */
+.typed {
+  font-family: var(--font-mono), "Courier New", monospace;
+  letter-spacing: 0.02em;
+}
+
+/* Chrome voice — Franklin caps */
+.chrome-label {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
